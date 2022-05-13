@@ -2,15 +2,7 @@
   <div class="hello">
     <div class="global">
         <div>
-          <el-upload
-              accept=".xls,.xlsx"
-              class="upload-demo"
-              action="#"
-              :on-change="handleChange"
-              :file-list="fileList">
-            <el-button size="small" type="primary">点击选择文件</el-button>
-            <div slot="tip" class="el-upload__tip">只能上传xls、xlsx文件</div>
-          </el-upload>
+          <el-button style="margin-left:90px;" type="primary" @click="onFileSelect">文件选择</el-button>
         </div>
         <hr>
         <div class="divItem">
@@ -45,21 +37,25 @@ export default {
           DemoSpan : '',
           docName: '',
           itemLocation: 'H4',
-          frontValue: '项目支出明细测算',
-          endValue: '项目采购',
-          fileList: []
+          // frontValue: '项目支出明细测算',
+          // endValue: '项目采购',
+          frontValue: '21',
+          endValue: '34',
+          filePathList: []
       }
   },
   methods:{
       onSure(){
-          tool.extract(this.location, this.frontValue, this.endValue)
+          let result = tool.extractTemp(this.filePathList, this.itemLocation, this.frontValue, this.endValue)
+          console.log(result)
+          alert(result)
       },
       onCancel(){
           close()
       },
-      handleChange(file, fileList) {
-        this.fileList = fileList;
-        console.log(this.fileList)
+      onFileSelect(){
+        this.filePathList = wps.EtApplication().GetOpenFilename("表格文件(*.xls;*.xlsx), *.xls;*.xlsx", 1, "表格文件选择", "确定;取消", true)
+        console.log(this.filePathList)
       }
   },
   mounted() {

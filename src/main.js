@@ -1,21 +1,28 @@
 import Vue from 'vue'
 import App from './App.vue'
 import VueRouter from 'vue-router'
+import ElementUI from 'element-ui'
+import 'element-ui/lib/theme-chalk/index.css'
 
+Vue.use(ElementUI)
 Vue.use(VueRouter)
 Vue.config.productionTip = false
 
 const routerCfg= [
   {
-    path: '/', 
+    path: '/',
     name: '默认页',
     component:()=>import('./components/Root.vue')
   },{
-    path: '/dialog', 
+    path: '/dialog',
     name: '对话框',
     component:()=>import('./components/Dialog.vue')
   },{
-    path: '/taskpane', 
+    path: '/extractDialog',
+    name: '批量提取对话框',
+    component:()=>import('./components/ExtractDialog.vue')
+  },{
+    path: '/taskpane',
     name: '任务窗格',
     component:()=>import('./components/TaskPane.vue')
   }
